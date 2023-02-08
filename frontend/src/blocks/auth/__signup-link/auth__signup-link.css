@@ -1,0 +1,12 @@
+.auth__signup-link {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #ffffff;
+    line-height: 1.17;
+    font-size: 14px;
+}
+
+.auth__signup-link:hover {
+    opacity: 0.6;
+}

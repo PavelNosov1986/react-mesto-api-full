@@ -1,0 +1,25 @@
+.profile__update-avatar {
+  width: 101%;
+  height: 101%;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/UpdateEditIcon.svg);
+  background-size: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .1s linear;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__update-avatar:focus {
+  outline: none;
+}

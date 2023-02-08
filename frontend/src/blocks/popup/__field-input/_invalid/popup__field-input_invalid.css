@@ -1,0 +1,7 @@
+.popup__field-input_invalid .popup__input-error{
+    visibility: visible;
+}
+
+.popup__field-input_invalid .popup__input{
+    border-bottom: 1px solid #FF0000;
+}

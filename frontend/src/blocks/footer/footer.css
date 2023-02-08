@@ -1,0 +1,19 @@
+.footer {
+    display: flex;
+    width: 100%;
+    max-width: 880px;
+    margin: 67px auto 60px;
+}
+
+@media (max-width:920px) {
+    .footer {
+        justify-content: center;
+        margin: 48px auto 36px;
+    }
+}
+
+@media (max-width:420px) {
+    .footer {
+        justify-content: start;
+    }
+}

@@ -1,0 +1,10 @@
+.profile__name-edit-button {
+    display: flex;
+    align-items: baseline;
+}
+
+@media (max-width: 445px) {
+    .profile__name-edit-button {
+       margin-left: 31px;
+    }
+}
