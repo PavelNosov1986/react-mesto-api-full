@@ -47,6 +47,7 @@ app.post(
   }),
   createUser,
 );
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
