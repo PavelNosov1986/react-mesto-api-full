@@ -8,6 +8,14 @@ const NOT_FOUND_USER_MESSAGE = 'Пользователь по указанном
 const INCORRECT_ERROR_MESSAGE = 'Переданы некорректные данные';
 const DEFAULT_ERROR_MESSAGE = 'Ошибка по умолчанию.';
 
+const allowedCors = [
+  'https://reactmestofull.nosovpavel.nomoredomainsclub.ru',
+  'http://api.reactmestofull.nosovp.nomoredomainsclub.ru',
+  'https://localhost:3000',
+  'http://localhost:3000',
+];
+const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+
 module.exports = {
   OK_CODE,
   DEFAULT_ERROR_CODE,
@@ -17,4 +25,6 @@ module.exports = {
   DEFAULT_ERROR_MESSAGE,
   AUTH_ERROR_MESSAGE,
   UNAUTHORIZED_ERROR_MESSAGE,
+  allowedCors,
+  DEFAULT_ALLOWED_METHODS,
 };
