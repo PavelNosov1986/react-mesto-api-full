@@ -3,12 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
+const path = require('path');
 const { login, createUser } = require('./controllers/users');
 
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
 const { cors } = require('./middlewares/cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 
@@ -19,11 +21,19 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.set('strictQuery', false);
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
+app.use(requestLogger);
+app.use(express.static(path.join(__dirname, '../../frontend')));
 app.use(cors);
 
 if (!process.env.JWTKEY) {
   process.env.JWTKEY = 'super-strong-secret';
 }
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post(
   '/signin',
@@ -60,6 +70,7 @@ app.use((req, res, next) => {
 });
 app.use(errors());
 app.use(handleError);
+app.use(errorLogger);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
