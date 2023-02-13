@@ -28,7 +28,7 @@ if (!process.env.JWTKEY) {
 }
 
 // eslint-disable-next-line no-undef
-app.use(cors);
+app.use(cors());
 
 // app.use((req, res, next) => {
 //   const { method } = req;
