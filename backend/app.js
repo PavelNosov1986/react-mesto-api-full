@@ -1,15 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-const path = require('path');
 const { login, createUser } = require('./controllers/users');
 
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
-const { cors } = require('./middlewares/cors');
+const { allowedCors, DEFAULT_ALLOWED_METHODS } = require('./constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -22,8 +22,25 @@ mongoose.set('strictQuery', false);
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-app.use(cors);
+
+app.use((req, res, next) => {
+  const { method } = req;
+  const { origin } = req.headers;
+  const requestHeaders = req.headers['access-control-request-headers'];
+
+  // eslint-disable-next-line no-undef
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    return res.end();
+  }
+
+  return next();
+});
 
 if (!process.env.JWTKEY) {
   process.env.JWTKEY = 'super-strong-secret';
