@@ -9,7 +9,7 @@ const { login, createUser } = require('./controllers/users');
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
-const { allowedCors, DEFAULT_ALLOWED_METHODS } = require('./constants');
+const { allowedCors } = require('./constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -29,15 +29,14 @@ if (!process.env.JWTKEY) {
 
 app.use((req, res, next) => {
   const { method } = req;
-  // const { origin } = req.headers;
+  const { origin } = req.headers;
   const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-  res.header('Access-Control-Allow-Origin', '*');
-
-  // if (allowedCors.includes(origin)) {
-  //   res.header('Access-Control-Allow-Origin', '*');
-  //   res.header('Access-Control-Allow-Credentials', true);
-  // }
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Headers', requestHeaders);
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
