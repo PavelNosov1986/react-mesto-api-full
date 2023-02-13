@@ -27,24 +27,27 @@ if (!process.env.JWTKEY) {
   process.env.JWTKEY = 'super-strong-secret';
 }
 
-app.use((req, res, next) => {
-  const { method } = req;
-  const { origin } = req.headers;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+// eslint-disable-next-line no-undef
+app.use(cors);
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', true);
-  }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    return res.end();
-  }
+// app.use((req, res, next) => {
+//   const { method } = req;
+//   const { origin } = req.headers;
+//   const requestHeaders = req.headers['access-control-request-headers'];
+//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-  return next();
-});
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//     res.header('Access-Control-Allow-Credentials', true);
+//   }
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
+//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+//     return res.end();
+//   }
+
+//   return next();
+// });
 
 app.get('/crash-test', () => {
   setTimeout(() => {
