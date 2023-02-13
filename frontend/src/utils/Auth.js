@@ -1,4 +1,4 @@
-const BASE_URL = "http://api.reactmestofull.nosovp.nomoredomainsclub.ru";
+const BASE_URL = "https://api.reactmestofull.nosovp.nomoredomainsclub.ru";
 
 function checkRes(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);

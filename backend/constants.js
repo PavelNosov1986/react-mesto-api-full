@@ -10,6 +10,8 @@ const DEFAULT_ERROR_MESSAGE = 'Ошибка по умолчанию.';
 
 const allowedCors = [
   'https://reactmestofull.nosovpavel.nomoredomainsclub.ru',
+  'https://api.reactmestofull.nosovp.nomoredomainsclub.ru',
+  'http://reactmestofull.nosovpavel.nomoredomainsclub.ru',
   'http://api.reactmestofull.nosovp.nomoredomainsclub.ru',
   'https://localhost:3000',
   'http://localhost:3000',
