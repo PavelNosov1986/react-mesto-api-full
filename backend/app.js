@@ -23,12 +23,15 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
 
+if (!process.env.JWTKEY) {
+  process.env.JWTKEY = 'super-strong-secret';
+}
+
 app.use((req, res, next) => {
   const { method } = req;
   const { origin } = req.headers;
   const requestHeaders = req.headers['access-control-request-headers'];
 
-  // eslint-disable-next-line no-undef
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
@@ -41,10 +44,6 @@ app.use((req, res, next) => {
 
   return next();
 });
-
-if (!process.env.JWTKEY) {
-  process.env.JWTKEY = 'super-strong-secret';
-}
 
 app.get('/crash-test', () => {
   setTimeout(() => {
