@@ -22,7 +22,7 @@ mongoose.set('strictQuery', false);
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(cors);
 
 if (!process.env.JWTKEY) {
