@@ -1,8 +1,7 @@
 export class Api {
-  constructor(baseUrl, token) {
+  constructor(baseUrl) {
     this._baseUrl = baseUrl;
-    this._token = token;
-  }
+    }
 
   async fetchApi(url, method = 'GET', data = null) {
     return fetch(this._baseUrl + url, {
@@ -36,6 +35,6 @@ export class Api {
   fetchDeleteLikeCards(cardId) { return this.fetchApi(`cards/${cardId}/likes`, "DELETE"); }
 }
 
-const api = new Api("https://mesto.nomoreparties.co/v1/cohort-52/", " a616ae4a-e48b-45d5-bb84-b54bbaa2d914");
+const api = new Api("https://api.reactmestofull.nosovp.nomoredomainsclub.ru");
 
 export default api;

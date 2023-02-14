@@ -2,5 +2,5 @@
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`. 
   
 * IP  158.160.33.186
-* Frontend  https://reactmestofull.nosovpavel.nomoredomainsclub.ru
+* Frontend https://reactmestofull.nosovpavel.nomoredomainsclub.ru
 * Backend  https://api.reactmestofull.nosovp.nomoredomainsclub.ru

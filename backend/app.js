@@ -9,7 +9,7 @@ const { login, createUser } = require('./controllers/users');
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
-const { allowedCors } = require('./constants');
+const { corsPolicy } = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -27,40 +27,7 @@ if (!process.env.JWTKEY) {
   process.env.JWTKEY = 'super-strong-secret';
 }
 
-// app.use((req, res, next) => {
-//   const { method } = req;
-//   const { origin } = req.headers;
-//   const requestHeaders = req.headers['access-control-request-headers'];
-//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//     res.header('Access-Control-Allow-Credentials', true);
-//   }
-//   if (method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     return res.end();
-//   }
-
-//   return next();
-// });
-
-// eslint-disable-next-line consistent-return
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-  );
-  // eslint-disable-next-line eqeqeq
-  if (req.method == 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  }
-
-  next();
-});
+app.use(corsPolicy);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
