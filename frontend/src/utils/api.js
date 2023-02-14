@@ -8,7 +8,8 @@ export class Api {
       headers: {
         'Content-Type': "application/json",
         'accept': "text/plain",   
-        authorization: `Bearer ${localStorage.getItem('token')}`,    
+        // eslint-disable-next-line no-undef
+        authorization: `Bearer ${localStorage.getItem(token)}`,    
       },
       method,
       body: data ? JSON.stringify(data) : null

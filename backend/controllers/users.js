@@ -31,16 +31,16 @@ const login = (req, res, next) => {
         if (!matched) {
           throw new UnauthorizedError(AUTH_ERROR_MESSAGE);
         }
-        return user;
+
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+          { expiresIn: '7d' },
+        );
+
+        // eslint-disable-next-line object-curly-spacing, object-shorthand
+        return {...user, token: token};
       });
-    })
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        { expiresIn: '7d' },
-      );
-      return res.send({ token });
     })
     .catch(next);
 };
