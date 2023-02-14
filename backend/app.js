@@ -26,10 +26,6 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use(requestLogger);
 
-if (!process.env.JWTKEY) {
-  process.env.JWTKEY = 'super-strong-secret';
-}
-
 app.use(cors);
 
 app.get('/crash-test', () => {

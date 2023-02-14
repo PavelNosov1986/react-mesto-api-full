@@ -16,8 +16,11 @@ const {
   ConflictError,
 } = require('../errors/index');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
+
   return User.findOne({ email })
     .select('+password')
     .then((user) => {
@@ -33,17 +36,11 @@ const login = (req, res, next) => {
     })
     .then((user) => {
       const token = jwt.sign(
-        {
-          _id: user._id,
-        },
-        process.env.JWTKEY,
-        {
-          expiresIn: '7d',
-        },
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
+        { expiresIn: '7d' },
       );
-      return res.send({
-        token,
-      });
+      return res.send({ token });
     })
     .catch(next);
 };

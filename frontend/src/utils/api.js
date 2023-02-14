@@ -3,11 +3,12 @@ export class Api {
     this._baseUrl = baseUrl;
     }
 
-  async fetchApi(method = 'GET', data = null) {
-    return fetch(this._baseUrl, {
+  async fetchApi(url, method = 'GET', data = null) {
+    return fetch(this._baseUrl + url, {
       headers: {
         'Content-Type': "application/json",
-        'accept': "text/plain",       
+        'accept': "text/plain",   
+        authorization: `Bearer ${localStorage.getItem('token')}`,    
       },
       method,
       body: data ? JSON.stringify(data) : null
@@ -24,14 +25,14 @@ export class Api {
     });
   }
 
-  fetchGetMe() { return this.fetchApi("users/me", "GET"); }
-  fetchUpdateMe(data) { return this.fetchApi("users/me", "PATCH", data); }
-  fetchUpdateAvatar(data) { return this.fetchApi("users/me/avatar", "PATCH", data); }
-  fetchGetCards() { return this.fetchApi("cards", "GET"); }
-  fetchPostCards(data) { return this.fetchApi("cards", "POST", data); }
-  fetchDeleteCards(cardId) { return this.fetchApi(`cards/${cardId}`, "DELETE"); }
-  fetchAddLikeCards(cardId) { return this.fetchApi(`cards/${cardId}/likes`, "PUT"); }
-  fetchDeleteLikeCards(cardId) { return this.fetchApi(`cards/${cardId}/likes`, "DELETE"); }
+  fetchGetMe() { return this.fetchApi("/users/me", "GET"); }
+  fetchUpdateMe(data) { return this.fetchApi("/users/me", "PATCH", data); }
+  fetchUpdateAvatar(data) { return this.fetchApi("/users/me/avatar", "PATCH", data); }
+  fetchGetCards() { return this.fetchApi("/cards", "GET"); }
+  fetchPostCards(data) { return this.fetchApi("/cards", "POST", data); }
+  fetchDeleteCards(cardId) { return this.fetchApi(`/cards/${cardId}`, "DELETE"); }
+  fetchAddLikeCards(cardId) { return this.fetchApi(`/cards/${cardId}/likes`, "PUT"); }
+  fetchDeleteLikeCards(cardId) { return this.fetchApi(`/cards/${cardId}/likes`, "DELETE"); }
 }
 
 const api = new Api("https://api.reactmestofull.nosovp.nomoredomainsclub.ru");
