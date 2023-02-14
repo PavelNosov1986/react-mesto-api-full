@@ -5,6 +5,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
+// eslint-disable-next-line import/order
+const path = require('path');
 
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
@@ -20,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.set('strictQuery', false);
 mongoose.connect('mongodb://localhost:27017/mestodb');
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use(requestLogger);
 
