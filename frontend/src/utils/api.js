@@ -3,12 +3,11 @@ export class Api {
     this._baseUrl = baseUrl;
     }
 
-  async fetchApi(url, method = 'GET', data = null) {
-    return fetch(this._baseUrl + url, {
+  async fetchApi(method = 'GET', data = null) {
+    return fetch(this._baseUrl, {
       headers: {
         'Content-Type': "application/json",
-        'accept': "text/plain",
-        'authorization': this._token,
+        'accept': "text/plain",       
       },
       method,
       body: data ? JSON.stringify(data) : null
