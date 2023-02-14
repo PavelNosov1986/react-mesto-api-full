@@ -40,7 +40,7 @@ const login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      return res.send({...user, token: token });
+      return res.send(user, { token });
     })
     .catch(next);
 };
