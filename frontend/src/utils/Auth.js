@@ -25,8 +25,25 @@ export const login = ({email, password}) => {
     },
     body: JSON.stringify({ email: email, password: password }),
   })
-    .then(checkRes)
+  .then(checkRes)
 };
+
+export const AUTHENTICATED_USER = 'AUTHENTICATED_USER'
+
+export const setAuthenticatedUser = (token) => {
+  localStorage.setItem(AUTHENTICATED_USER, JSON.stringify(token))
+}
+
+export const getAuthenticatedUser = () => {
+  const item = localStorage.getItem(AUTHENTICATED_USER)
+  return item ? JSON.parse(item) : undefined
+}
+
+export const getAuthToken = () => {
+  const authenticatedUser = getAuthenticatedUser()
+  return authenticatedUser ? authenticatedUser.token : undefined
+}
+
 
 export const getToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
