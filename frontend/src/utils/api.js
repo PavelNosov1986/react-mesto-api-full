@@ -4,12 +4,14 @@ export class Api {
     }
 
   async fetchApi(url, method = 'GET', data = null) {
+    debugger
+    let ss = localStorage.getItem('JWT_TOKEN');
     return fetch(this._baseUrl + url, {
       headers: {
         'Content-Type': "application/json",
         'accept': "text/plain",   
         // eslint-disable-next-line no-undef
-        authorization: `Bearer ${getAuthToken()}`,    
+        authorization: `Bearer ${localStorage.getItem('JWT_TOKEN')}`,    
       },
       method,
       body: data ? JSON.stringify(data) : null

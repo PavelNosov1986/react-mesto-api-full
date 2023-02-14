@@ -190,10 +190,10 @@ function App() {
         auth
             .login(data)
             .then((res) => {
-                if (res.token) {
+                if (res.token) {                    
                     setLoggedIn(true);
                     setEmail(data.email);
-                    localStorage.setItem("jwt", res.token);
+                    localStorage.setItem("JWT_TOKEN", res.token);
                     history.push("/");
                 }
             })
