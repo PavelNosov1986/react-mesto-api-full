@@ -9,7 +9,7 @@ const { login, createUser } = require('./controllers/users');
 const { NotFoundError } = require('./errors/index');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
-const { corsPolicy } = require('./middlewares/cors');
+const { cors } = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -27,7 +27,7 @@ if (!process.env.JWTKEY) {
   process.env.JWTKEY = 'super-strong-secret';
 }
 
-app.use(corsPolicy);
+app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
