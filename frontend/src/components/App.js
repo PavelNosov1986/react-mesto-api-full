@@ -31,7 +31,7 @@ function App() {
     const [email, setEmail] = useState("");
     const history = useHistory();
 
-    useEffect(() => {          
+    useEffect(() => {
         const jwt = localStorage.getItem("JWT_TOKEN");
         if (jwt) {
             auth
@@ -55,7 +55,7 @@ function App() {
         if (loggedIn) {
             api.fetchGetCards()
                 .then((cards) => {
-                 setCards(cards.data);
+                    setCards(cards.data);
                 })
                 .catch((err) => {
                     console.log('Ошибка. Запрос не выполнен');
@@ -64,10 +64,10 @@ function App() {
     }, [loggedIn]);
 
     useEffect(() => {
-        if (loggedIn) {                   
+        if (loggedIn) {
             api.fetchGetMe()
                 .then((user) => {
-                    setCurrentUser(user.user);                   
+                    setCurrentUser(user.user);
                 })
                 .catch((err) => {
                     console.log('Ошибка. Запрос не выполнен');
@@ -102,7 +102,7 @@ function App() {
     function handleUpdateUser(user) {
         api.fetchUpdateMe(user)
             .then((res) => {
-                setCurrentUser(res);
+                setCurrentUser(res.data);
                 closeAllPopups();
             })
             .catch((err) => {
@@ -113,7 +113,7 @@ function App() {
     function handleUpdateAvatar(avatar) {
         api.fetchUpdateAvatar(avatar)
             .then((res) => {
-                setCurrentUser(res);
+                setCurrentUser(res.data);
                 closeAllPopups();
             })
             .catch((err) => {
@@ -124,7 +124,7 @@ function App() {
     function handleAddPlaceSubmit(card) {
         api.fetchPostCards(card)
             .then((newCard) => {
-                setCards([newCard, ...cards]);
+                setCards([newCard.data, ...cards]);
                 closeAllPopups();
             })
             .catch((err) => {
@@ -136,7 +136,7 @@ function App() {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
         if (isLiked) {
             api.fetchDeleteLikeCards(card._id).then((newCard) => {
-                const newCads = cards.map((c) => c._id === card._id ? newCard : c);
+                const newCads = cards.map((c) => c._id === card._id ? newCard.data : c);
                 setCards([...newCads]);
             })
                 .catch((err) => {
@@ -146,7 +146,7 @@ function App() {
 
         else {
             api.fetchAddLikeCards(card._id).then((newCard) => {
-                const newCads = cards.map((c) => c._id === card._id ? newCard : c);
+                const newCads = cards.map((c) => c._id === card._id ? newCard.data : c);
                 setCards([...newCads]);
             })
                 .catch((err) => {
@@ -168,7 +168,7 @@ function App() {
 
 
     function handleRegister(data) {
-       
+
         auth
             .register(data)
             .then(() => {
@@ -191,11 +191,11 @@ function App() {
         auth
             .login(data)
             .then((res) => {
-                if (res.token) {                    
+                if (res.token) {
                     setLoggedIn(true);
                     setEmail(data.email);
                     localStorage.setItem("JWT_TOKEN", res.token);
-                                      history.push("/");
+                    history.push("/");
                 }
             })
             .catch((err) => {
