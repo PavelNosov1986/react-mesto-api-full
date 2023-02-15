@@ -16,6 +16,7 @@ const {
   ConflictError,
 } = require('../errors/index');
 
+// eslint-disable-next-line no-unused-vars
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const login = (req, res, next) => {

@@ -9,7 +9,7 @@ import PopupUpdateAvatarForm from './PopupUpdateAvatarForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import * as auth from "../utils/Auth";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 import Register from './Register';
 import Login from './Login';
@@ -31,13 +31,13 @@ function App() {
     const [email, setEmail] = useState("");
     const history = useHistory();
 
-    useEffect(() => {
-        const jwt = localStorage.getItem("jwt");
+    useEffect(() => {          
+        const jwt = localStorage.getItem("JWT_TOKEN");
         if (jwt) {
             auth
                 .getToken(jwt)
                 .then((res) => {
-                    setEmail(res.data.email);
+                    setEmail(res.user.email);
                     setLoggedIn(true);
                     history.push("/");
                 })
@@ -55,7 +55,7 @@ function App() {
         if (loggedIn) {
             api.fetchGetCards()
                 .then((cards) => {
-                    setCards(cards);
+                 setCards(cards.data);
                 })
                 .catch((err) => {
                     console.log('Ошибка. Запрос не выполнен');
@@ -64,10 +64,10 @@ function App() {
     }, [loggedIn]);
 
     useEffect(() => {
-        if (loggedIn) {
+        if (loggedIn) {                   
             api.fetchGetMe()
                 .then((user) => {
-                    setCurrentUser(user);
+                    setCurrentUser(user.user);                   
                 })
                 .catch((err) => {
                     console.log('Ошибка. Запрос не выполнен');
@@ -168,6 +168,7 @@ function App() {
 
 
     function handleRegister(data) {
+       
         auth
             .register(data)
             .then(() => {
@@ -194,7 +195,7 @@ function App() {
                     setLoggedIn(true);
                     setEmail(data.email);
                     localStorage.setItem("JWT_TOKEN", res.token);
-                    history.push("/");
+                                      history.push("/");
                 }
             })
             .catch((err) => {
@@ -211,7 +212,7 @@ function App() {
 
     function handleSignOut() {
         setLoggedIn(false);
-        localStorage.removeItem("jwt");
+        localStorage.removeItem("JWT_TOKEN");
         history.push("/signin");
     }
 

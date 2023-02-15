@@ -3,9 +3,7 @@ export class Api {
     this._baseUrl = baseUrl;
     }
 
-  async fetchApi(url, method = 'GET', data = null) {
-    debugger
-    let ss = localStorage.getItem('JWT_TOKEN');
+  async fetchApi(url, method = 'GET', data = null) {   
     return fetch(this._baseUrl + url, {
       headers: {
         'Content-Type': "application/json",
