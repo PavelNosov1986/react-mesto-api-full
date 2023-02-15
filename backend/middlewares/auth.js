@@ -16,7 +16,7 @@ module.exports.auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, '41ffd0f90256f7efcac9e7de0666a2a3');
   } catch (err) {
     next(new UnauthorizedError(UNAUTHORIZED_ERROR_MESSAGE));
   }
