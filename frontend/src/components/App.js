@@ -122,8 +122,7 @@ function App() {
     }
 
     function handleAddPlaceSubmit(card) {
-        debugger
-        api.fetchPostCards(card)
+            api.fetchPostCards(card)
             .then((newCard) => {
                 setCards([newCard.data, ...cards]);
                 closeAllPopups();

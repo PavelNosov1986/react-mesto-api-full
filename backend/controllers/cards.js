@@ -16,7 +16,8 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  Card.create({ name, link, owner: req.user })
+  // eslint-disable-next-line no-undef
+  Card.create({ name, link, owner })
     .then((card) => res.status(OK_CODE).send({ data: card }))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
