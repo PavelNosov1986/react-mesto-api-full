@@ -122,6 +122,7 @@ function App() {
     }
 
     function handleAddPlaceSubmit(card) {
+        debugger
             api.fetchPostCards(card)
             .then((newCard) => {
                 setCards([newCard.data, ...cards]);
