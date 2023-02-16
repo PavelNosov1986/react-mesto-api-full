@@ -8,6 +8,8 @@ const NOT_FOUND_USER_MESSAGE = 'Пользователь по указанном
 const INCORRECT_ERROR_MESSAGE = 'Переданы некорректные данные';
 const DEFAULT_ERROR_MESSAGE = 'Ошибка по умолчанию.';
 
+const regexLinkURL = /^https?:\/\/(?:[a-z0-9\\-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpe?g|gif|png|bmp|webp)$/im;
+
 const allowedCors = [
   '*',
   'http://api.reactmestofull.nosovp.nomoredomainsclub.ru/cards',
@@ -29,4 +31,5 @@ module.exports = {
   UNAUTHORIZED_ERROR_MESSAGE,
   allowedCors,
   DEFAULT_ALLOWED_METHODS,
+  regexLinkURL,
 };

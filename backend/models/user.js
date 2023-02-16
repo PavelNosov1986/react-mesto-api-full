@@ -1,5 +1,5 @@
-/* eslint-disable no-useless-escape */
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate(value) {
+      return validator.isEmail(value);
+    },
   },
   password: {
     type: String,

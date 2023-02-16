@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -10,6 +9,7 @@ const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
 const { cors } = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { regexLinkURL } = require('./constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -46,7 +46,7 @@ app.post(
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30).default('Жак-Ив Кусто'),
       about: Joi.string().min(2).max(30),
-      avatar: Joi.string(),
+      avatar: Joi.string().regex(regexLinkURL),
       email: Joi.string().required().email(),
       password: Joi.string().required(),
     }),

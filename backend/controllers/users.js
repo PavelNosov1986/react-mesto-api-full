@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -16,7 +15,6 @@ const {
   ConflictError,
 } = require('../errors/index');
 
-// eslint-disable-next-line no-unused-vars
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const login = (req, res, next) => {
@@ -47,7 +45,9 @@ const login = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
 
   bcrypt.hash(password, 10)
     .then((passHash) => User.create({
