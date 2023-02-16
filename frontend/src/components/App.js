@@ -32,7 +32,7 @@ function App() {
     const history = useHistory();
 
     useEffect(() => {
-        const jwt = localStorage.getItem("JWT_TOKEN");
+        const jwt = localStorage.getItem("JWT_SECRET");
         if (jwt) {
             auth
                 .getToken(jwt)
@@ -194,7 +194,7 @@ function App() {
                 if (res.token) {
                     setLoggedIn(true);
                     setEmail(data.email);
-                    localStorage.setItem("JWT_TOKEN", res.token);
+                    localStorage.setItem("JWT_SECRET", res.token);
                     history.push("/");
                 }
             })
@@ -212,7 +212,7 @@ function App() {
 
     function handleSignOut() {
         setLoggedIn(false);
-        localStorage.removeItem("JWT_TOKEN");
+        localStorage.removeItem("JWT_SECRET");
         history.push("/signin");
     }
 

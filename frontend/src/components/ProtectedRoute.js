@@ -5,7 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function ProtectedRoute({ component: Component, ...props }) {
     const currentUser = useContext(CurrentUserContext);
    
-    const jwt = localStorage.getItem("JWT_TOKEN");
+    const jwt = localStorage.getItem("JWT_SECRET");
       
     if (!jwt)
         return (<>
